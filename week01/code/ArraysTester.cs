@@ -35,7 +35,7 @@ public static class ArraysTester {
     private static List<double> MultiplesOf(double number, int length)
     {
         /*
-        1.create a new list object
+        1.create a new list<double> object
         2.use a for loop to iterate each element to multiply by 1,2,4...
         3. add the result into the list
         4. return the list
@@ -58,13 +58,14 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        //use data.count minus amount to get the index of rotating number
+        /*1.Use data.count minus amount to get the index of rotating number
+          2.Create a copy of the right part of the list
+          3.Remove the right part from the original list
+          4. Insert the right part at the beginning of the original list
+        */
         int rotateIndex = data.Count - amount;
-        // Create a copy of the right part of the list
         List<int> rightPart = data.Skip(rotateIndex).ToList();
-        // Remove the right part from the original list
         data.RemoveRange(rotateIndex, amount);
-        // Insert the right part at the beginning of the original list
         data.InsertRange(0, rightPart);
     }
 }
