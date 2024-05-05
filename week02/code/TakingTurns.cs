@@ -15,7 +15,7 @@
         // Console.WriteLine(players);    // This can be un-commented out for debug help
         while (players.Length > 0)
             players.GetNextPerson();
-        // Defect(s) Found: 
+        // Defect(s) Found: Enqueue index is wrong. Not insert at 0, but add to the end
 
         Console.WriteLine("---------");
 
@@ -56,7 +56,7 @@
             players.GetNextPerson();
             // Console.WriteLine(players);
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: when people are re-enqueed, there are two cases: turn >1 or turn <= 0
 
         Console.WriteLine("---------");
 
@@ -73,7 +73,8 @@
             players.GetNextPerson();
             // Console.WriteLine(players);
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: when people are re-enqueed, there are two cases: turn >1 or turn <= 0
+
 
         Console.WriteLine("---------");
 

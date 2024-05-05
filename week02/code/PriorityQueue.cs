@@ -13,23 +13,25 @@
         _queue.Add(newNode);
     }
 
-    public String Dequeue() {
+    public void Dequeue() {
         if (_queue.Count == 0) // Verify the queue is not empty
-        {
-            Console.WriteLine("The queue is empty.");
-            return null;
-        }
-
+        
+            Console.WriteLine("The priority queue is empty.");
+        else {
         // Find the index of the item with the highest priority to remove
-        var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++) {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                highPriorityIndex = index;
+            var highPriorityIndex = 0;
+            for (int index = 0; index < _queue.Count - 1; index++) {
+                if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
+                    highPriorityIndex = index;
+            }
+            if (highPriorityIndex !=0 ){
+                _queue.RemoveAt(highPriorityIndex);
+                Console.WriteLine(_queue[highPriorityIndex].Value);
+            } else {
+                _queue.RemoveAt(0);
+                Console.WriteLine(_queue[0].Value);
+            }
         }
-
-        // Remove and return the item with the highest priority
-        var value = _queue[highPriorityIndex].Value;
-        return value;
     }
 
     public override string ToString() {
