@@ -47,7 +47,7 @@
 
         // Test 4
         // Scenario: If the queue is empty, then an error message will be displayed.
-        // Expected Result: 
+        // Expected Result: The priority queue is empty
         Console.WriteLine("Test 4");
         priorityQueue = new PriorityQueue();
         priorityQueue.Dequeue();

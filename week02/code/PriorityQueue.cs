@@ -14,22 +14,22 @@
     }
 
     public void Dequeue() {
-        if (_queue.Count == 0) // Verify the queue is not empty
-        
+        if (_queue.Count == 0){ // Verify the queue is not empty
             Console.WriteLine("The priority queue is empty.");
+        }
         else {
         // Find the index of the item with the highest priority to remove
             var highPriorityIndex = 0;
-            for (int index = 0; index < _queue.Count - 1; index++) {
-                if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                    highPriorityIndex = index;
+            for (int i = 1; i < _queue.Count; i++) {
+                if (_queue[i].Priority > _queue[highPriorityIndex].Priority)
+                    highPriorityIndex = i;
             }
             if (highPriorityIndex !=0 ){
+                Console.WriteLine($"{_queue[highPriorityIndex].Value} removed");
                 _queue.RemoveAt(highPriorityIndex);
-                Console.WriteLine(_queue[highPriorityIndex].Value);
             } else {
-                _queue.RemoveAt(0);
-                Console.WriteLine(_queue[0].Value);
+                Console.WriteLine($"{_queue[0].Value} removed");
+                 _queue.RemoveAt(0);
             }
         }
     }
