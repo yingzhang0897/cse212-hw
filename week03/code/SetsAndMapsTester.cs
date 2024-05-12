@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -53,7 +54,7 @@ public static class SetsAndMapsTester {
         // Problem 4: Maze
         Console.WriteLine("\n=========== Maze TESTS ===========");
         Dictionary<ValueTuple<int, int>, bool[]> map = SetupMazeMap();
-        var maze = new Maze(map);
+        var maze = new Maze(map, 1, 1);
         maze.ShowStatus(); // Should be at (1,1)
         maze.MoveUp(); // Error
         maze.MoveLeft(); // Error
@@ -107,10 +108,27 @@ public static class SetsAndMapsTester {
     /// that there were no duplicates) and therefore should not be displayed.
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
-    private static void DisplayPairs(string[] words) {
-        // To display the pair correctly use something like:
-        // Console.WriteLine($"{word} & {pair}");
-        // Each pair of words should displayed on its own line.
+    private static string ReverseString(string str) {
+        var stack = new Stack<char>();
+        foreach (var letter in str)
+            stack.Push(letter);
+
+        var result = "";
+        while (stack.Count > 0)
+            result += stack.Pop();
+
+        return result;
+    }
+    private static void DisplayPairs(string[] text) {
+        var stringSeen = new HashSet<string>();
+            foreach (var str in text)
+            {
+                if (stringSeen.Contains(ReverseString(str)))
+                    Console.WriteLine($"{str} {ReverseString(str)}");
+                // Add this number to the values_seen set
+                stringSeen.Add(str);
+            }
+       
     }
 
     /// <summary>
@@ -131,9 +149,15 @@ public static class SetsAndMapsTester {
         var degrees = new Dictionary<string, int>();
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
-        }
-
+            var degree = fields[3];
+                foreach (var d in degree)
+                {
+                    if (degrees.ContainsKey(degree))
+                        degrees[degree] += 1;
+                    else
+                        degrees[degree] = 1;
+                }  
+            }
         return degrees;
     }
 
@@ -157,8 +181,30 @@ public static class SetsAndMapsTester {
     /// # Problem 3 #
     /// #############
     private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        if (word1.Length != word2.Length)
+            return false;
+        Dictionary<char, int> summaryTable = new Dictionary<char, int>();
+        foreach (var w in word1)
+        {
+            if (!summaryTable.ContainsKey(w))
+                summaryTable[w] = 1;
+            else
+                summaryTable[w] += 1;
+        }
+        foreach (var w in word2)
+        {
+            if (!summaryTable.ContainsKey(w))
+                return false;
+            summaryTable[w]--;
+            if (summaryTable[w] < 0)
+                return false;
+        }
+        foreach (var v in summaryTable.Values)
+        {
+            if (v != 0)
+                return false;
+        }
+        return true;
     }
 
     /// <summary>
