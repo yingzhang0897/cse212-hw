@@ -146,19 +146,19 @@ public static class SetsAndMapsTester {
     /// # Problem 2 #
     /// #############
     private static Dictionary<string, int> SummarizeDegrees(string filename) {
-        var degrees = new Dictionary<string, int>();
+        var degreeTable = new Dictionary<string, int>();
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
-            var degree = fields[3];
-                foreach (var d in degree)
+            var degrees = fields[3].Split(",");//shoud be array of degrees
+                foreach (var d in degrees)
                 {
-                    if (degrees.ContainsKey(degree))
-                        degrees[degree] += 1;
+                    if (degreeTable.ContainsKey(d))
+                        degreeTable[d] += 1;
                     else
-                        degrees[degree] = 1;
+                        degreeTable[d] = 1;
                 }  
             }
-        return degrees;
+        return degreeTable;
     }
 
     /// <summary>
@@ -181,6 +181,9 @@ public static class SetsAndMapsTester {
     /// # Problem 3 #
     /// #############
     private static bool IsAnagram(string word1, string word2) {
+        word1 = new string(word1.Where(char.IsLetterOrDigit).ToArray()).ToLower();
+        word2 = new string(word2.Where(char.IsLetterOrDigit).ToArray()).ToLower();
+
         if (word1.Length != word2.Length)
             return false;
         Dictionary<char, int> summaryTable = new Dictionary<char, int>();
@@ -197,11 +200,6 @@ public static class SetsAndMapsTester {
                 return false;
             summaryTable[w]--;
             if (summaryTable[w] < 0)
-                return false;
-        }
-        foreach (var v in summaryTable.Values)
-        {
-            if (v != 0)
                 return false;
         }
         return true;
