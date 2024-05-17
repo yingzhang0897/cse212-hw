@@ -113,18 +113,21 @@ public class LinkedList : IEnumerable<int> {
         Node? curr = _head;
         while (curr is not null) {
             if (curr.Data == value) {
-                if (curr == _head) {
-                    RemoveHead();
-                }
-                else if (curr == _tail) {
+                 if (curr == _tail) {
                     RemoveTail();
                 }
                 else {
-                    curr.Next!.Prev = curr.Next;
-                    curr.Prev!.Next = curr.Next;
+                    if (curr.Prev != null) {
+                        curr.Prev!.Next = curr.Next;
+                         
+                    }
+                    if (curr.Next != null) {
+                        curr.Next!.Prev = curr.Prev;
+                    }
                 }
                 return;
             }
+            curr = curr.Next;
         }
     }
 
@@ -132,9 +135,15 @@ public class LinkedList : IEnumerable<int> {
     /// Search for all instances of 'oldValue' and replace the value to 'newValue'.
     /// </summary>
     public void Replace(int oldValue, int newValue) {
-        InsertAfter(oldValue, newValue);
-        Remove(oldValue);
+    Node? curr = _head;
+    while (curr != null) {
+        if (curr.Data == oldValue) {
+            curr.Data = newValue;
+        }
+        curr = curr.Next;
     }
+}
+
 
     /// <summary>
     /// Yields all values in the linked list

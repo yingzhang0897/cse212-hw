@@ -71,6 +71,6 @@ public static class LinkedListTester {
 
 
         Console.WriteLine("\n=========== PROBLEM 5 TESTS ===========");
-        Console.WriteLine(ll.Reverse().AsString()); // <IEnumerable>[10, 10, 35, 100}
+        Console.WriteLine(ll.Reverse().AsEnumerable().AsString()); // <IEnumerable>[10, 10, 35, 100}
     }
 }
