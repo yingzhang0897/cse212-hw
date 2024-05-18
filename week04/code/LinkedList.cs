@@ -70,8 +70,10 @@ public class LinkedList : IEnumerable<int> {
             _tail = null;
         }
         else if(_tail is not null) {
-            _tail.Prev!.Next = null;
-            _tail = _tail.Prev;
+            if (_tail.Prev != null ){
+                 _tail.Prev!.Next = null;
+            }
+             _tail = _tail.Prev;
         }
     }
 
@@ -113,7 +115,10 @@ public class LinkedList : IEnumerable<int> {
         Node? curr = _head;
         while (curr is not null) {
             if (curr.Data == value) {
-                 if (curr == _tail) {
+                if (curr == _head){
+                    RemoveHead();
+                }
+                else if (curr == _tail) {
                     RemoveTail();
                 }
                 else {
